@@ -1,9 +1,9 @@
 import React from 'react';
 import './App.css';
-import Table from './components/Table';
+import Main from './components/Main';
 
 function App() {
-  return <Table />;
+  return <Main />;
 }
 
 export default App;

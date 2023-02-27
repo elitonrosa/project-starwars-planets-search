@@ -1,21 +1,28 @@
 import PropTypes from 'prop-types';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
+import useFetch from '../hooks/useFetch';
 import { fetchAPI } from '../services/fetchAPI';
 import context from './Context';
 
 function Provider({ children }) {
   const [planets, setPlanets] = useState([]);
+  const [filteredPlanets, setFilteredPlanets] = useState(planets);
+
+  const { fetchData, isLoading } = useFetch();
 
   useEffect(() => {
     (async () => {
-      setPlanets(await fetchAPI());
+      await fetchData(fetchAPI(), setPlanets);
     })();
   }, []);
 
-  const values = {
-    planets,
-    setPlanets,
-  };
+  useEffect(() => {
+    setFilteredPlanets(planets);
+  }, [planets]);
+
+  const values = useMemo(() => ({
+    planets, isLoading, setFilteredPlanets, filteredPlanets,
+  }), [planets, isLoading, filteredPlanets]);
 
   return <context.Provider value={ values }>{children}</context.Provider>;
 }
