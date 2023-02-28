@@ -2,62 +2,47 @@ import React, { useContext, useState } from 'react';
 import context from '../context/Context';
 
 function NumericFilter() {
-  const { planets, setPlanets } = useContext(context);
-  const [filters, setFilters] = useState({
-    columnFilter: 'population',
-    comparisonFilter: 'maior que',
-    numberValue: '0',
+  const { filters, setFilters } = useContext(context);
+
+  const [selectedOptions, setSelectedOptions] = useState({
+    column: 'population',
+    comparison: 'maior que',
+    valueFilter: '0',
   });
+  const [options, setOptions] = useState([
+    'population',
+    'orbital_period',
+    'diameter',
+    'rotation_period',
+    'surface_water',
+  ]);
 
   const handleChange = ({ target: { value, name } }) => {
-    setFilters({ ...filters, [name]: value });
+    setSelectedOptions({ ...selectedOptions, [name]: value });
   };
 
   const onClick = () => {
-    const { columnFilter, comparisonFilter, numberValue } = filters;
-    console.log('click');
-    setPlanets(
-      planets.filter((planet) => {
-        switch (comparisonFilter) {
-        case 'maior que':
-          return (
-            planet[columnFilter] !== 'unknown'
-              && Number(planet[columnFilter]) > Number(numberValue)
-          );
-        case 'menor que':
-          return (
-            planet[columnFilter] !== 'unknown'
-              && Number(planet[columnFilter]) < Number(numberValue)
-          );
-        case 'igual a':
-          return (
-            planet[columnFilter] !== 'unknown'
-              && Number(planet[columnFilter]) === Number(numberValue)
-          );
-        default:
-          return false;
-        }
-      }),
-    );
+    setFilters([...filters, selectedOptions]);
+    setOptions(options.filter((option) => selectedOptions.column !== option));
   };
 
   return (
     <div>
       <select
-        name="columnFilter"
+        name="column"
         data-testid="column-filter"
-        defaultValue="population"
+        defaultValue={ options.length !== 0 ? options[0] : '' }
         onChange={ handleChange }
         onClick={ handleChange }
       >
-        <option value="population">population</option>
-        <option value="orbital_period">orbital_period</option>
-        <option value="diameter">diameter</option>
-        <option value="rotation_period">rotation_period</option>
-        <option value="surface_water">surface_water</option>
+        {options.map((option) => (
+          <option key={ option } value={ option }>
+            {option}
+          </option>
+        ))}
       </select>
       <select
-        name="comparisonFilter"
+        name="comparison"
         data-testid="comparison-filter"
         defaultValue="maior que"
         onChange={ handleChange }
@@ -68,7 +53,7 @@ function NumericFilter() {
         <option value="igual a">igual a</option>
       </select>
       <input
-        name="numberValue"
+        name="valueFilter"
         type="number"
         data-testid="value-filter"
         defaultValue="0"
