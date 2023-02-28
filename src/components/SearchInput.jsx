@@ -1,16 +1,16 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect } from 'react';
 import context from '../context/Context';
 
 export default function SearchInput() {
-  const [search, setSearch] = useState('');
-
-  const { planets, setFilteredPlanets } = useContext(context);
-
-  const filterByName = planets
-    .filter((planet) => planet.name.includes(search));
+  const {
+    filterByNameAndColumn,
+    setFilteredPlanets,
+    setSearch,
+    search,
+  } = useContext(context);
 
   useEffect(() => {
-    setFilteredPlanets(filterByName);
+    setFilteredPlanets(filterByNameAndColumn());
   }, [search]);
 
   return (
