@@ -1,10 +1,10 @@
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 
 const useFetch = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [errors, setErrors] = useState(null);
 
-  const fetchData = async (fn, setContextState) => {
+  const fetchData = useCallback(async (fn, setContextState) => {
     try {
       setIsLoading(true);
       const results = await fn;
@@ -14,7 +14,7 @@ const useFetch = () => {
     } finally {
       setIsLoading(false);
     }
-  };
+  }, []);
 
   return {
     fetchData, isLoading, errors,

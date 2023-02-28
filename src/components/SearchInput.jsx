@@ -1,17 +1,8 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext } from 'react';
 import context from '../context/Context';
 
 export default function SearchInput() {
-  const {
-    filterByNameAndColumn,
-    setFilteredPlanets,
-    setSearch,
-    search,
-  } = useContext(context);
-
-  useEffect(() => {
-    setFilteredPlanets(filterByNameAndColumn());
-  }, [search]);
+  const { setSearch } = useContext(context);
 
   return (
     <input

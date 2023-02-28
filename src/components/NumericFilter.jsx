@@ -1,16 +1,44 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import context from '../context/Context';
 
 function NumericFilter() {
-  const {
-    filters,
-    setFilters,
-    filterByNameAndColumn,
-    setFilteredPlanets,
-  } = useContext(context);
+  const { planets, setPlanets } = useContext(context);
+  const [filters, setFilters] = useState({
+    columnFilter: 'population',
+    comparisonFilter: 'maior que',
+    numberValue: '0',
+  });
 
   const handleChange = ({ target: { value, name } }) => {
     setFilters({ ...filters, [name]: value });
+  };
+
+  const onClick = () => {
+    const { columnFilter, comparisonFilter, numberValue } = filters;
+    console.log('click');
+    setPlanets(
+      planets.filter((planet) => {
+        switch (comparisonFilter) {
+        case 'maior que':
+          return (
+            planet[columnFilter] !== 'unknown'
+              && Number(planet[columnFilter]) > Number(numberValue)
+          );
+        case 'menor que':
+          return (
+            planet[columnFilter] !== 'unknown'
+              && Number(planet[columnFilter]) < Number(numberValue)
+          );
+        case 'igual a':
+          return (
+            planet[columnFilter] !== 'unknown'
+              && Number(planet[columnFilter]) === Number(numberValue)
+          );
+        default:
+          return false;
+        }
+      }),
+    );
   };
 
   return (
@@ -20,6 +48,7 @@ function NumericFilter() {
         data-testid="column-filter"
         defaultValue="population"
         onChange={ handleChange }
+        onClick={ handleChange }
       >
         <option value="population">population</option>
         <option value="orbital_period">orbital_period</option>
@@ -32,6 +61,7 @@ function NumericFilter() {
         data-testid="comparison-filter"
         defaultValue="maior que"
         onChange={ handleChange }
+        onClick={ handleChange }
       >
         <option value="maior que">maior que</option>
         <option value="menor que">menor que</option>
@@ -41,14 +71,10 @@ function NumericFilter() {
         name="numberValue"
         type="number"
         data-testid="value-filter"
-        onChange={ handleChange }
         defaultValue="0"
+        onChange={ handleChange }
       />
-      <button
-        type="button"
-        data-testid="button-filter"
-        onClick={ () => setFilteredPlanets(filterByNameAndColumn()) }
-      >
+      <button type="button" data-testid="button-filter" onClick={ onClick }>
         Filtrar
       </button>
     </div>
