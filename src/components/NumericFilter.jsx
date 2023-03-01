@@ -78,7 +78,10 @@ function NumericFilter() {
           <div key={ index } data-testid="filter">
             <p>
               {`${filter.column} - ${filter.comparison} - ${filter.valueFilter} `}
-              <button onClick={ () => removeFilter(filter.column) }>
+              <button
+                onClick={ () => removeFilter(filter.column) }
+                data-testid="button-remove-filter"
+              >
                 Remover
               </button>
             </p>

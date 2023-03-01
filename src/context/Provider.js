@@ -53,25 +53,22 @@ function Provider({ children }) {
       const { column, comparison, valueFilter } = filter;
 
       setPlanetsBySelections((p) => p.filter((planet) => {
-        switch (comparison) {
-        case 'maior que':
+        if (comparison === 'maior que') {
           return (
             planet[column] !== 'unknown'
-                && Number(planet[column]) > Number(valueFilter)
+              && Number(planet[column]) > Number(valueFilter)
           );
-        case 'menor que':
-          return (
-            planet[column] !== 'unknown'
-                && Number(planet[column]) < Number(valueFilter)
-          );
-        case 'igual a':
-          return (
-            planet[column] !== 'unknown'
-                && Number(planet[column]) === Number(valueFilter)
-          );
-        default:
-          return false;
         }
+        if (comparison === 'menor que') {
+          return (
+            planet[column] !== 'unknown'
+              && Number(planet[column]) < Number(valueFilter)
+          );
+        }
+        return (
+          planet[column] !== 'unknown'
+            && Number(planet[column]) === Number(valueFilter)
+        );
       }));
     });
   }, [filters, planets]);
