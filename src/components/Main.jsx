@@ -1,5 +1,8 @@
 import React from 'react';
+
+import BtnRemoveFilters from './BtnRemoveFilters';
 import NumericFilter from './NumericFilter';
+import OrderFilter from './OrderFilter';
 import SearchInput from './SearchInput';
 import Table from './Table';
 
@@ -13,6 +16,8 @@ function Main() {
         <section>
           <SearchInput />
           <NumericFilter />
+          <OrderFilter />
+          <BtnRemoveFilters />
         </section>
         <section>
           <Table />

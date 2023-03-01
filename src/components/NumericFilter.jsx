@@ -1,29 +1,21 @@
 import React, { useContext, useEffect, useState } from 'react';
+
 import context from '../context/Context';
 
-const INITIAL_OPTIONS_STATE = [
-  'population',
-  'orbital_period',
-  'diameter',
-  'rotation_period',
-  'surface_water',
-];
-
 function NumericFilter() {
-  const { setSearch, filters, setFilters } = useContext(context);
+  const { setSearch, filters, setFilters, options, setOptions } = useContext(context);
 
   const [selectedOptions, setSelectedOptions] = useState({
     column: 'population',
     comparison: 'maior que',
     valueFilter: '0',
   });
-  const [options, setOptions] = useState(INITIAL_OPTIONS_STATE);
 
   const handleChange = ({ target: { value, name } }) => {
     setSelectedOptions({ ...selectedOptions, [name]: value });
   };
 
-  const onClick = () => {
+  const addFilter = () => {
     setSearch('');
     setFilters([...filters, selectedOptions]);
     setOptions(options.filter((option) => selectedOptions.column !== option));
@@ -36,11 +28,6 @@ function NumericFilter() {
   const removeFilter = (filterName) => {
     setFilters(filters.filter((filter) => filter.column !== filterName));
     setOptions((p) => [filterName, ...p]);
-  };
-
-  const removeAllFilters = () => {
-    setFilters([]);
-    setOptions(INITIAL_OPTIONS_STATE);
   };
 
   return (
@@ -80,7 +67,7 @@ function NumericFilter() {
         <button
           type="button"
           data-testid="button-filter"
-          onClick={ onClick }
+          onClick={ addFilter }
           disabled={ options.length === 0 }
         >
           Filtrar
@@ -97,15 +84,6 @@ function NumericFilter() {
             </p>
           </div>
         ))}
-      </div>
-      <div>
-        <button
-          type="button"
-          onClick={ removeAllFilters }
-          data-testid="button-remove-filters"
-        >
-          Remover todos os filtros
-        </button>
       </div>
     </div>
   );

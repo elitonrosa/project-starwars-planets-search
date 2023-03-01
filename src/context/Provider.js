@@ -1,15 +1,25 @@
 import PropTypes from 'prop-types';
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
-import useFetch from '../hooks/useFetch';
-import { fetchAPI } from '../services/fetchAPI';
+
 import context from './Context';
+import useFetch from '../hooks/useFetch';
+import { COLUMN_OPTIONS } from '../services/constTypes';
+import { fetchAPI } from '../services/fetchAPI';
 
 function Provider({ children }) {
   const [planets, setPlanets] = useState([]);
   const [planetsBySelections, setPlanetsBySelections] = useState(planets);
   const [filteredPlanets, setFilteredPlanets] = useState([]);
+
   const [search, setSearch] = useState('');
+
   const [filters, setFilters] = useState([]);
+  const [options, setOptions] = useState(COLUMN_OPTIONS);
+
+  const [order, setOrder] = useState({
+    column: 'population',
+    sort: 'ASC',
+  });
 
   const { fetchData, isLoading } = useFetch();
 
@@ -21,16 +31,24 @@ function Provider({ children }) {
     setPlanetsBySelections(planets);
   }, [planets]);
 
-  const filterByName = useCallback(
-    () => planetsBySelections
+  const filterByName = useCallback(() => {
+    const { column, sort } = order;
+
+    const array = planetsBySelections
       .filter((planet) => String(planet.name)
-        .toLowerCase()
-        .includes(search.toLocaleLowerCase())),
-    [planetsBySelections, search],
-  );
+        .toLowerCase().includes(search.toLocaleLowerCase()))
+      .sort((a, b) => (sort === 'ASC'
+        ? Number(a[column]) - Number(b[column])
+        : Number(b[column]) - Number(a[column])));
+    return [
+      ...array.filter((planet) => planet[column] !== 'unknown'),
+      ...array.filter((planet) => planet[column] === 'unknown'),
+    ];
+  }, [planetsBySelections, search, order]);
 
   useEffect(() => {
     setPlanetsBySelections(planets);
+
     filters.forEach((filter) => {
       const { column, comparison, valueFilter } = filter;
 
@@ -70,13 +88,26 @@ function Provider({ children }) {
       search,
       planetsBySelections,
       filters,
+      options,
+      order,
+      setOrder,
+      setOptions,
       setFilters,
       setPlanets,
       setFilteredPlanets,
       setPlanetsBySelections,
       setSearch,
     }),
-    [planets, isLoading, filteredPlanets, search, planetsBySelections, filters],
+    [
+      planets,
+      isLoading,
+      filteredPlanets,
+      search,
+      planetsBySelections,
+      filters,
+      options,
+      order,
+    ],
   );
 
   return <context.Provider value={ values }>{children}</context.Provider>;
