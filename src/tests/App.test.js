@@ -1,9 +1,15 @@
-import React from 'react';
-import { render, screen } from '@testing-library/react';
-import App from '../App';
+import React from "react";
+import { screen, waitFor } from "@testing-library/react";
+import App from "../App";
+import renderWithContext from "./helpers/renderWithContext";
 
-test('I am your test', () => {
-  render(<App />);
-  const linkElement = screen.getByText(/Hello, App!/i);
-  expect(linkElement).toBeInTheDocument();
+describe("Requisito 01", () => {
+  it("Verifica se uma tabela com todos os Planetas é renderizada", async () => {
+    renderWithContext(<App />);
+
+    const planets = await waitFor(() => screen.getAllByTestId('planet-name'), {
+      timeout: 2000,
+    });
+    expect(planets.length).toBe(10);
+  });
 });
