@@ -30,6 +30,7 @@ function Provider({ children }) {
   );
 
   useEffect(() => {
+    setPlanetsBySelections(planets);
     filters.forEach((filter) => {
       const { column, comparison, valueFilter } = filter;
 
@@ -55,7 +56,7 @@ function Provider({ children }) {
         }
       }));
     });
-  }, [filters]);
+  }, [filters, planets]);
 
   useEffect(() => {
     setFilteredPlanets(filterByName);
