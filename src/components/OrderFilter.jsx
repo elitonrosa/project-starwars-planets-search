@@ -2,6 +2,7 @@ import React, { useContext, useState } from 'react';
 
 import context from '../context/Context';
 import { COLUMN_OPTIONS } from '../services/constTypes';
+import styles from '../styles/OrderFilter.module.sass';
 
 function OrderFilter() {
   const { setOrder } = useContext(context);
@@ -20,20 +21,23 @@ function OrderFilter() {
   };
 
   return (
-    <div>
-      <select
-        name="column"
-        onChange={ handleChange }
-        onClick={ handleChange }
-        data-testid="column-sort"
-      >
-        {COLUMN_OPTIONS.map((option) => (
-          <option key={ option } value={ option }>
-            {option}
-          </option>
-        ))}
-      </select>
-      <div>
+    <div className={ styles.orderFilterContainer }>
+      <label htmlFor="column">
+        <p>Ordenar</p>
+        <select
+          name="column"
+          onChange={ handleChange }
+          onClick={ handleChange }
+          data-testid="column-sort"
+        >
+          {COLUMN_OPTIONS.map((option) => (
+            <option key={ option } value={ option }>
+              {option}
+            </option>
+          ))}
+        </select>
+      </label>
+      <div className={ styles.radioInputs }>
         <label htmlFor="sortColumnAsc">
           <input
             type="radio"
@@ -43,7 +47,7 @@ function OrderFilter() {
             data-testid="column-sort-input-asc"
             onChange={ handleChange }
           />
-          Ascendente
+          <span>Ascendente</span>
         </label>
         <label htmlFor="sortColumnDesc">
           <input
@@ -54,7 +58,7 @@ function OrderFilter() {
             data-testid="column-sort-input-desc"
             onChange={ handleChange }
           />
-          Descendente
+          <span>Descendente</span>
         </label>
       </div>
       <button

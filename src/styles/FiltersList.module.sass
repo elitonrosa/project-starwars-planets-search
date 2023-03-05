@@ -1,0 +1,36 @@
+@use './utils/variables' as *
+@use './utils/mixins' as *
+
+hr
+  width: 100%
+
+.filtersContainer
+  width: 100%
+  display: flex
+  flex-wrap: wrap
+  justify-content: center
+  margin-bottom: 10px
+
+  .filtersList
+    display: flex
+    gap: 20px
+
+    .filter
+      display: flex
+      align-items: center
+      gap: 5px
+      // background-color: red
+
+      button
+        background: none
+        display: flex
+        align-items: center
+
+        .deleteIcon
+          color: $yellow
+          cursor: pointer
+          transition: 0.3s
+
+          &:hover
+            color: red
+            transform: scale(1.1)

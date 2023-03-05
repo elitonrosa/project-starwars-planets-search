@@ -1,6 +1,8 @@
 import React, { useContext, useEffect, useState } from 'react';
 
 import context from '../context/Context';
+import { COLUMN_OPTIONS } from '../services/constTypes';
+import styles from '../styles/NumericFilter.module.sass';
 
 function NumericFilter() {
   const { setSearch, filters, setFilters, options, setOptions } = useContext(context);
@@ -21,18 +23,19 @@ function NumericFilter() {
     setOptions(options.filter((option) => selectedOptions.column !== option));
   };
 
+  const removeAllFilters = () => {
+    setFilters([]);
+    setOptions(COLUMN_OPTIONS);
+  };
+
   useEffect(() => {
     setSelectedOptions((p) => ({ ...p, column: options[0] }));
   }, [options]);
 
-  const removeFilter = (filterName) => {
-    setFilters(filters.filter((filter) => filter.column !== filterName));
-    setOptions((p) => [filterName, ...p]);
-  };
-
   return (
-    <div>
-      <div>
+    <div className={ styles.numericFiltersContainer }>
+      <label htmlFor="column">
+        <p>Coluna</p>
         <select
           name="column"
           data-testid="column-filter"
@@ -46,6 +49,9 @@ function NumericFilter() {
             </option>
           ))}
         </select>
+      </label>
+      <label htmlFor="comparison">
+        <p>Operador</p>
         <select
           name="comparison"
           data-testid="comparison-filter"
@@ -57,37 +63,29 @@ function NumericFilter() {
           <option value="menor que">menor que</option>
           <option value="igual a">igual a</option>
         </select>
-        <input
-          name="valueFilter"
-          type="number"
-          data-testid="value-filter"
-          defaultValue="0"
-          onChange={ handleChange }
-        />
-        <button
-          type="button"
-          data-testid="button-filter"
-          onClick={ addFilter }
-          disabled={ options.length === 0 }
-        >
-          Filtrar
-        </button>
-      </div>
-      <div>
-        {filters.map((filter, index) => (
-          <div key={ index } data-testid="filter">
-            <p>
-              {`${filter.column} - ${filter.comparison} - ${filter.valueFilter} `}
-              <button
-                onClick={ () => removeFilter(filter.column) }
-                data-testid="button-remove-filter"
-              >
-                Remover
-              </button>
-            </p>
-          </div>
-        ))}
-      </div>
+      </label>
+      <input
+        name="valueFilter"
+        type="number"
+        data-testid="value-filter"
+        defaultValue="0"
+        onChange={ handleChange }
+      />
+      <button
+        type="button"
+        data-testid="button-filter"
+        onClick={ addFilter }
+        disabled={ options.length === 0 }
+      >
+        Filtrar
+      </button>
+      <button
+        type="button"
+        onClick={ removeAllFilters }
+        data-testid="button-remove-filters"
+      >
+        Limpar Filtros
+      </button>
     </div>
   );
 }
