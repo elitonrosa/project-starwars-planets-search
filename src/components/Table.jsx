@@ -28,6 +28,12 @@ function Table() {
                     <td key={ key } data-testid="planet-name">
                       {planet[key]}
                     </td>
+                  ) : key === 'films' ? (
+                    <td key={ key }>
+                      {planet[key].map((film, index) => (
+                        <p key={ index }>{film}</p>
+                      ))}
+                    </td>
                   ) : (
                     <td key={ key }>{planet[key]}</td>
                   )))}
