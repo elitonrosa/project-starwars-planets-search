@@ -5,12 +5,12 @@ import OrderFilter from './OrderFilter';
 import SearchInput from './SearchInput';
 import Table from './Table';
 import Header from './Header';
-import styles from '../styles/Main.module.sass';
 import FiltersList from './FiltersList';
+import styles from '../styles/Main.module.sass';
 
 function Main() {
   return (
-    <>
+    <div className={ styles.bodyCover }>
       <Header />
       <main>
         <section>
@@ -27,7 +27,7 @@ function Main() {
           <Table />
         </section>
       </main>
-    </>
+    </div>
   );
 }
 
