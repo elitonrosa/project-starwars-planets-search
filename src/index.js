@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom/client';
 import App from './App';
 import Provider from './context/Provider';
 
-document.title = 'Project Star Wars Planets Search';
+document.title = 'Star Wars Planets Search';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <Provider>
