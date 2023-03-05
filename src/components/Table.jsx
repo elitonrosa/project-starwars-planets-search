@@ -1,11 +1,13 @@
 import React, { useContext } from 'react';
+
 import context from '../context/Context';
+import styles from '../styles/Table.module.sass';
 
 function Table() {
   const { filteredPlanets, isLoading } = useContext(context);
 
   return (
-    <div>
+    <div className={ styles.planets }>
       {isLoading ? (
         <p>Carregando...</p>
       ) : (

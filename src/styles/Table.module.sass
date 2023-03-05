@@ -1,0 +1,35 @@
+@use './utils/variables' as *
+@use './utils/mixins' as *
+
+.planets
+  overflow-y: scroll
+  height: 320px
+  
+  &::-webkit-scrollbar
+    width: 8px
+    height: 5px
+    
+  &::-webkit-scrollbar-track
+    background-color: black
+
+  &::-webkit-scrollbar-thumb
+    background-color: $gray 
+    border-radius: 5px
+
+  &::-webkit-scrollbar-corner 
+    display: none
+
+  thead
+    position: sticky
+    top: 0
+    background-color: $gray
+
+    th
+      padding: 10px 20px
+      text-align: left
+      min-width: 150px
+
+  tbody
+    td
+      padding: 20px
+      border-bottom: $border-1

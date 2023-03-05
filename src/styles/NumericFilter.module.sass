@@ -1,0 +1,21 @@
+@use './utils/variables' as *
+@use './utils/mixins' as *
+
+.numericFiltersContainer
+  display: flex
+
+  input
+    @include inputs
+    width: 100px
+    text-align: center
+    margin: 0 20px
+    -moz-appearance: textfield
+
+    &::-webkit-inner-spin-button
+      -webkit-appearance: none
+    
+
+  @include selects
+
+  button
+    @include buttons

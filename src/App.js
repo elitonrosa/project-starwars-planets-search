@@ -1,6 +1,7 @@
 import React from 'react';
-import './App.css';
+
 import Main from './components/Main';
+import './styles/App.sass';
 
 function App() {
   return <Main />;
