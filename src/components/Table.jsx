@@ -9,7 +9,9 @@ function Table() {
   return (
     <div className={ styles.planets }>
       {isLoading ? (
-        <p>Carregando...</p>
+        <div className={ styles.loadingTable }>
+          <span>Carregando...</span>
+        </div>
       ) : (
         <table>
           <thead>
