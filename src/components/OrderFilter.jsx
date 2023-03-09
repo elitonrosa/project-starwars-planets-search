@@ -22,44 +22,46 @@ function OrderFilter() {
 
   return (
     <div className={ styles.orderFilterContainer }>
-      <label htmlFor="column">
-        <p>Ordenar</p>
-        <select
-          name="column"
-          onChange={ handleChange }
-          onClick={ handleChange }
-          data-testid="column-sort"
-        >
-          {COLUMN_OPTIONS.map((option) => (
-            <option key={ option } value={ option }>
-              {option}
-            </option>
-          ))}
-        </select>
-      </label>
-      <div className={ styles.radioInputs }>
-        <label htmlFor="sortColumnAsc">
-          <input
-            type="radio"
-            name="sort"
-            id="sortColumnAsc"
-            value="ASC"
-            data-testid="column-sort-input-asc"
+      <div className={ styles.selectorsContainer }>
+        <label htmlFor="column">
+          <p>Ordenar</p>
+          <select
+            name="column"
             onChange={ handleChange }
-          />
-          <span>Ascendente</span>
+            onClick={ handleChange }
+            data-testid="column-sort"
+          >
+            {COLUMN_OPTIONS.map((option) => (
+              <option key={ option } value={ option }>
+                {option}
+              </option>
+            ))}
+          </select>
         </label>
-        <label htmlFor="sortColumnDesc">
-          <input
-            type="radio"
-            name="sort"
-            id="sortColumnDesc"
-            value="DESC"
-            data-testid="column-sort-input-desc"
-            onChange={ handleChange }
-          />
-          <span>Descendente</span>
-        </label>
+        <div className={ styles.radioInputs }>
+          <label htmlFor="sortColumnAsc">
+            <input
+              type="radio"
+              name="sort"
+              id="sortColumnAsc"
+              value="ASC"
+              data-testid="column-sort-input-asc"
+              onChange={ handleChange }
+            />
+            <span>Ascendente</span>
+          </label>
+          <label htmlFor="sortColumnDesc">
+            <input
+              type="radio"
+              name="sort"
+              id="sortColumnDesc"
+              value="DESC"
+              data-testid="column-sort-input-desc"
+              onChange={ handleChange }
+            />
+            <span>Descendente</span>
+          </label>
+        </div>
       </div>
       <button
         type="button"

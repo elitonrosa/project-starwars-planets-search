@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 
 import context from '../context/Context';
+
 import styles from '../styles/Table.module.sass';
 
 function Table() {
