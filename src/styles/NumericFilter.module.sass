@@ -3,10 +3,27 @@
 
 .numericFiltersContainer
   display: flex
+  flex-wrap: wrap
+  min-width: 0
+  gap: 20px
+  justify-content: center
+
+  .selectorsContainer
+    display: flex
+    flex-direction: column
+    gap: 20px
+
+  .firstSelect
+    margin-bottom: 1px
+
+  .buttonsContainer
+    display: flex
+    flex-wrap: wrap
+    align-items: center
 
   input
     @include inputs
-    width: 100px
+    width: 80px
     text-align: center
     margin: 0 20px
     -moz-appearance: textfield
@@ -16,6 +33,7 @@
     
 
   @include selects
+
 
   button
     @include buttons
