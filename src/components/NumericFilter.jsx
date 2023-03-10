@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 
 import context from '../context/Context';
 import { COLUMN_OPTIONS } from '../services/constTypes';
+
 import styles from '../styles/NumericFilter.module.sass';
 
 function NumericFilter() {

@@ -2,6 +2,7 @@ import React, { useContext, useState } from 'react';
 
 import context from '../context/Context';
 import { COLUMN_OPTIONS } from '../services/constTypes';
+
 import styles from '../styles/OrderFilter.module.sass';
 
 function OrderFilter() {

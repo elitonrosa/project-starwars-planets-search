@@ -2,6 +2,7 @@ import React, { useContext } from 'react';
 import { MdDeleteOutline } from 'react-icons/md';
 
 import context from '../context/Context';
+
 import styles from '../styles/FiltersList.module.sass';
 
 function FiltersList() {

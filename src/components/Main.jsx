@@ -6,6 +6,7 @@ import SearchInput from './SearchInput';
 import Table from './Table';
 import Header from './Header';
 import FiltersList from './FiltersList';
+
 import styles from '../styles/Main.module.sass';
 
 function Main() {
